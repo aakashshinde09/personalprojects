@@ -38,6 +38,12 @@ public class RoomResponse {
 		this.photo = photoByte != null ? Base64.encodeBase64String(photoByte) : null;
 		this.bookings = bookings;
 	}
+
+
+	public void add(RoomResponse roomResponse) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
