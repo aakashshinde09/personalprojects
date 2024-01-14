@@ -15,13 +15,14 @@ const AddRoom = () => {
     const handleRoomInputChange = (e) => {
         const name = e.target.name;
         let value = e.target.value;
-        if(name === "roomPrice"){
-            if(!isNaN(value)){
-                value.parseInt(value);
-            }else{
-                value = ""
-            }
-        }
+        if (name === "roomPrice") {
+			if (!isNaN(value)) {
+				value = parseInt(value);
+			} else {
+				value = "";
+			}
+		}
+		
         setNewRoom({...newRoom, [name] : value})
     }
 
@@ -47,6 +48,10 @@ const AddRoom = () => {
         } catch (error) {
             setErrorMessage("error.message")
         }
+		setTimeout(() => {
+			setSuccessMessage("")
+			setErrorMessage("")
+		},3000)
     }
 
   return (
@@ -79,7 +84,7 @@ const AddRoom = () => {
 								</label>
 								<input
 									required
-									type="number"
+									type="text"
 									className="form-control"
 									id="roomPrice"
 									name="roomPrice"
