@@ -1,61 +1,61 @@
-import React, { useState } from 'react'
-import { addRoom } from '../utils/ApiFunctions';
-import RoomTypeSelector from '../common/RoomTypeSelector';
+import React, { useState } from "react"
+import { addRoom } from "../utils/ApiFunctions"
+import RoomTypeSelector from "../common/RoomTypeSelector"
+
 
 const AddRoom = () => {
-    const[newRoom, setNewRoom] = useState({
-        photo : null,
-        roomType : "",
-        roomPrice : ""
-    })
+	const [newRoom, setNewRoom] = useState({
+		photo: null,
+		roomType: "",
+		roomPrice: ""
+	})
 
-    const[imagePreview, setImagePreview] = useState("");
-    const[successMessage, setSuccessMessage] = useState("");
-    const[errorMessage, setErrorMessage] = useState("");
-    const handleRoomInputChange = (e) => {
-        const name = e.target.name;
-        let value = e.target.value;
-        if (name === "roomPrice") {
+	const [successMessage, setSuccessMessage] = useState("")
+	const [errorMessage, setErrorMessage] = useState("")
+	const [imagePreview, setImagePreview] = useState("")
+
+	const handleRoomInputChange = (e) => {
+		const name = e.target.name
+		let value = e.target.value
+		if (name === "roomPrice") {
 			if (!isNaN(value)) {
-				value = parseInt(value);
+				value = parseInt(value)
 			} else {
-				value = "";
+				value = ""
 			}
 		}
-		
-        setNewRoom({...newRoom, [name] : value})
-    }
+		setNewRoom({ ...newRoom, [name]: value })
+	}
 
-    const handleImageChange = (e) => {
-        const selectedImage = e.target.files[0];
-        setNewRoom({...newRoom, photo : selectedImage})
-        setImagePreview(URL.createObjectURL(selectedImage))
-    }
+	const handleImageChange = (e) => {
+		const selectedImage = e.target.files[0]
+		setNewRoom({ ...newRoom, photo: selectedImage })
+		setImagePreview(URL.createObjectURL(selectedImage))
+	}
 
-
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-        try {
-            const success = await addRoom(newRoom.photo, newRoom.roomType, newRoom.roomPrice)
-            if(success !== undefined){
-                setSuccessMessage("A New Room Was Added to the Database")
-                setNewRoom({photo: null, roomType: "", roomPrice: ""})
-                setImagePreview("");
-                setErrorMessage("");
-            }else{
-                setErrorMessage("Error Adding Room")
-            }
-        } catch (error) {
-            setErrorMessage("error.message")
-        }
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		try {
+			const success = await addRoom(newRoom.photo, newRoom.roomType, newRoom.roomPrice)
+			if (success !== undefined) {
+				setSuccessMessage("A new room was  added successfully !")
+				setNewRoom({ photo: null, roomType: "", roomPrice: "" })
+				setImagePreview("")
+				setErrorMessage("")
+			} else {
+				setErrorMessage("Error adding new room")
+			}
+		} catch (error) {
+			setErrorMessage(error.message)
+		}
 		setTimeout(() => {
 			setSuccessMessage("")
 			setErrorMessage("")
-		},3000)
-    }
+		}, 3000)
+	}
 
-  return (
-    <>
+	return (
+		<>
 			<section className="container mt-5 mb-5">
 				<div className="row justify-content-center">
 					<div className="col-md-8 col-lg-6">
@@ -84,7 +84,7 @@ const AddRoom = () => {
 								</label>
 								<input
 									required
-									type="text"
+									type="number"
 									className="form-control"
 									id="roomPrice"
 									name="roomPrice"
@@ -114,6 +114,9 @@ const AddRoom = () => {
 								)}
 							</div>
 							<div className="d-grid gap-2 d-md-flex mt-2">
+								{/* <Link to={"/existing-rooms"} className="btn btn-outline-info">
+									Existing rooms
+								</Link> */}
 								<button type="submit" className="btn btn-outline-primary ml-5">
 									Save Room
 								</button>
@@ -123,7 +126,7 @@ const AddRoom = () => {
 				</div>
 			</section>
 		</>
-  )
+	)
 }
 
 export default AddRoom

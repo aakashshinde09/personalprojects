@@ -39,12 +39,4 @@ public class RoomResponse {
 		this.bookings = bookings;
 	}
 
-
-	public void add(RoomResponse roomResponse) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
 }
